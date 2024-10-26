@@ -28,13 +28,49 @@
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
 SSHD_CONFIG="/etc/ssh/sshd_config"
 BACKUP_PATH="/etc/ssh/sshd_config.bak"
+NONINTERACTIVE=false
+MODIFYSSHDCONF=false
+
 # Configuration loading
 source "$CONFIG_PATH"
 
-NONINTERACTIVE=false
-if [[ "$1" == "--noninteractive" ]]; then
-    NONINTERACTIVE=true
-fi
+
+# Hilfe anzeigen
+function show_help {
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Options:"
+    echo "  -h, --help                Show this help message and exit"
+    echo "  -b, --noninteractive      Run in non-interactive mode"
+    echo "  -m, --modify-sshd-conf    Modify sshd_config wenn using with --runnow
+    echo ""
+    echo "Example:"
+    echo "  $0 --noninteractive --modify-sshd-conf"
+}
+
+# Argumente parsen
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        -b|--noninteractive)
+            NONINTERACTIVE=true
+            shift
+            ;;
+        -m|--modify-sshd-conf)
+            MODIFYSSHDCONF=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            show_help
+            exit 1
+            ;;
+    esac
+done
+
 if [[ "$SCRIPT_NAME" == "generate_banner" ]]; then
     NONINTERACTIVE=true
 fi
@@ -77,11 +113,12 @@ echo "Recommended sshd_config changes:"
 echo "Banner /srv/ssh/banner"
 echo "DebianBanner no"
 
+modify_sshd_config=false
 # Abfrage zur Anpassung der sshd_config
-
-if [ "$NONINTERACTIVE" == "true" ]; then
-    echo "Non-interactive mode detected. Skipping sshd_config modification."
-else
+if $MODIFYSSHDCONF; then
+    echo "Running the sshd_config modification immediately..."
+    modify_sshd_config=true
+elif ! $NONINTERACTIVE; then
     echo "To apply the banner, the following settings are recommended in sshd_config:"
     echo "  Banner /srv/ssh/banner"
     echo "  DebianBanner no"
@@ -89,24 +126,30 @@ else
     echo -n "Do you want to modify sshd_config now? (y/n): "
     read modify_sshd
     if [[ "$modify_sshd" == "y" || "$modify_sshd" == "Y" ]]; then
-        # Backup der sshd_config anlegen
-        BACKUP_PATH_N=$BACKUP_PATH
-        while [ -f "$BACKUP_PATH_N" ]; do
-            echo "Backup already exists at $BACKUP_PATH_N."
-            BACKUP_PATH_N=$BACKUP_PATH$(date "+%s")
-            echo "Trying $BACKUP_PATH_N."
-        done
-        echo "Creating a backup of sshd_config at $BACKUP_PATH_N..."
-        cp "$SSHD_CONFIG" "$BACKUP_PATH_N"
-        echo "Backup created at $BACKUP_PATH_N."
-        sed -i '/^Banner/d' "$SSHD_CONFIG"
-        sed -i '/^DebianBanner/d' "$SSHD_CONFIG"
-        echo "Banner /srv/ssh/banner" >> "$SSHD_CONFIG"
-        echo "DebianBanner no" >> "$SSHD_CONFIG"
-        service sshd restart
+        modify_sshd_config=true
     else
         echo "sshd_config modification skipped."
     fi
+else
+    echo "Non-interactive mode detected. Skipping sshd_config modification."
+fi
+
+if modify_sshd_config=true; then
+    # Backup der sshd_config anlegen
+    BACKUP_PATH_N=$BACKUP_PATH
+    while [ -f "$BACKUP_PATH_N" ]; do
+        echo "Backup already exists at $BACKUP_PATH_N."
+        BACKUP_PATH_N=$BACKUP_PATH$(date "+%s")
+        echo "Trying $BACKUP_PATH_N."
+    done
+    echo "Creating a backup of sshd_config at $BACKUP_PATH_N..."
+    cp "$SSHD_CONFIG" "$BACKUP_PATH_N"
+    echo "Backup created at $BACKUP_PATH_N."
+    sed -i '/^Banner/d' "$SSHD_CONFIG"
+    sed -i '/^DebianBanner/d' "$SSHD_CONFIG"
+    echo "Banner /srv/ssh/banner" >> "$SSHD_CONFIG"
+    echo "DebianBanner no" >> "$SSHD_CONFIG"
+    service sshd restart
 fi
 
 echo "Installation complete. Run $SCRIPT_PATH to generate the SSH banner."
