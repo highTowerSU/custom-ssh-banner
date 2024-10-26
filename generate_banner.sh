@@ -5,6 +5,11 @@ BACKUP_PATH="/etc/ssh/sshd_config.bak"
 # Configuration loading
 source "$CONFIG_PATH"
 
+NONINTERACTIVE=false
+if [[ "$1" == "--noninteractive" ]]; then
+    NONINTERACTIVE=true
+fi
+
 mkdir -p /srv/ssh
 apt install -y figlet
 hostname=$(hostname -s)
@@ -27,7 +32,7 @@ echo "DebianBanner no"
 
 # Abfrage zur Anpassung der sshd_config
 
-if [[ -z "$PS1" ]]; then
+if [ "$NONINTERACTIVE" == "true" ]; then
     echo "Non-interactive mode detected. Skipping sshd_config modification."
 else
     echo "To apply the banner, the following settings are recommended in sshd_config:"
