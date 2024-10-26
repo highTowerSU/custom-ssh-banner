@@ -134,7 +134,7 @@ else
     echo "Non-interactive mode detected. Skipping sshd_config modification."
 fi
 
-if modify_sshd_config=true; then
+if modify_sshd_config; then
     # Backup der sshd_config anlegen
     BACKUP_PATH_N=$BACKUP_PATH
     while [ -f "$BACKUP_PATH_N" ]; do
