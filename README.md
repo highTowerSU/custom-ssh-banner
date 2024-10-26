@@ -1,4 +1,3 @@
-```markdown
 # Custom SSH Banner Script
 
 This script generates a custom SSH banner using `figlet`. It loads configuration from `/etc/ssh/custom_sshd_banner.conf`, where you can set the admin contact email. The banner is saved in `/srv/ssh/banner`, and recommended `sshd_config` settings are displayed.
