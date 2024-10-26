@@ -26,6 +26,7 @@
 NONINTERACTIVE=false
 RUNNOW=false
 CRON=false
+MODIFYSSHDCONF=false
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
 SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
 SYMLINK_PATH="/etc/cron.daily/generate_banner"
@@ -39,6 +40,7 @@ function show_help {
     echo "  -b, --noninteractive      Run in non-interactive mode"
     echo "  -c, --cron                Set up a cron job for daily execution"
     echo "  -r, --runnow              Run the script immediately after installation"
+    echo "  -m, --modify-sshd-conf    Modify sshd_config wenn using with --runnow
     echo ""
     echo "Example:"
     echo "  $0 --noninteractive --cron --config /path/to/custom.conf"
@@ -61,6 +63,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         -r|--runnow)
             RUNNOW=true
+            shift
+            ;;
+        -m|--modify-sshd-conf)
+            MODIFYSSHDCONF=true
             shift
             ;;
         *)
@@ -110,16 +116,24 @@ fi
 
 echo "Installation complete. Run $SCRIPT_PATH to generate the SSH banner."
 
+ARGS=""
+if $NONINTERACTIVE; then
+    ARGS=$ARGS --noninteractive
+fi
+if $MODIFYSSHDCONF; then
+    ARGS=$ARGS --modify-sshd-conf 
+fi
+
 # Sofortige Ausführung basierend auf --runnow oder interaktive Abfrage
 if $RUNNOW; then
     echo "Running the banner generation script immediately..."
-    "$SCRIPT_PATH"
+    "$SCRIPT_PATH" $ARGS
 elif ! $NONINTERACTIVE; then
     echo -n "Do you want to run the banner generation script immediately? (y/n): "
     read runnow_response
     if [[ "$runnow_response" == "y" || "$runnow_response" == "Y" ]]; then
         echo "Running the banner generation script immediately..."
-        "$SCRIPT_PATH"
+        "$SCRIPT_PATH" $ARGS
     else
         echo "Immediate run skipped."
     fi
