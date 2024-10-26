@@ -5,7 +5,8 @@
 #
 # Repository: https://github.com/highTowerSU/custom-ssh-banner
 #
-# Description: installs custom ssh banner script
+# Description: installs custom SSH banner script, supports optional cron setup 
+#              and non-interactive mode.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -21,10 +22,49 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 # -----------------------------------------------------------------------------
 
+# Standard-Parameter
+NONINTERACTIVE=false
+CRON=false
+CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
+
+# Hilfe anzeigen
+function show_help {
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Options:"
+    echo "  -h, --help                Show this help message and exit"
+    echo "      --noninteractive      Run in non-interactive mode"
+    echo "  -c, --cron                Set up a cron job for daily execution"
+    echo ""
+    echo "Example:"
+    echo "  $0 --noninteractive --cron --config /path/to/custom.conf"
+}
+
+# Argumente parsen
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        -b|--noninteractive)
+            NONINTERACTIVE=true
+            shift
+            ;;
+        -c|--cron)
+            CRON=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            show_help
+            exit 1
+            ;;
+    esac
+done
 
 # Pfade für die Installation
 SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
-CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
 SYMLINK_PATH="/etc/cron.daily/generate_banner"
 
 # Skript kopieren und ausführbar machen
@@ -44,10 +84,19 @@ else
     echo "Configuration file already exists at $CONFIG_PATH. Skipping creation."
 fi
 
-# Abfrage, ob der Symlink erstellt werden soll
-echo -n "Do you want to create a symlink for daily cron? (y/n): "
-read create_symlink
-if [[ "$create_symlink" == "y" || "$create_symlink" == "Y" ]]; then
+# Symlink für cron erstellen basierend auf NONINTERACTIVE oder Abfrage
+create_symlink=false
+if $CRON || $NONINTERACTIVE; then
+    create_symlink=true
+else
+    echo -n "Do you want to create a symlink for daily cron? (y/n): "
+    read create_symlink_response
+    if [[ "$create_symlink_response" == "y" || "$create_symlink_response" == "Y" ]]; then
+        create_symlink=true
+    fi
+fi
+
+if $create_symlink; then
     echo "Creating symlink at $SYMLINK_PATH..."
     ln -sf "$SCRIPT_PATH" "$SYMLINK_PATH"
     echo "Symlink created."
