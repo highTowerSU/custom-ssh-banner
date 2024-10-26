@@ -44,9 +44,24 @@ apt install -y figlet
 hostname=$(hostname -s)
 domain=$(hostname -d)
 
+# Hostname holen und figlet-Ausgaben erstellen
+output_mini=$(echo "$hostname" | figlet -cWf mini)
+output_big=$(echo "$hostname" | figlet -cWf big)
+
+# Zeilenanzahl der Ausgaben bestimmen
+lines_mini=$(echo "$output_mini" | wc -l)
+lines_big=$(echo "$output_big" | wc -l)
+
+
+
 # Banner-Datei erstellen
 echo "################################################################################" > /srv/ssh/banner
-echo $hostname | figlet -cWf mini >> /srv/ssh/banner
+# Zeilenanzahl vergleichen und entsprechende Ausgabe wählen
+if [ "$lines_mini" -gt "$lines_big" ]; then
+    echo "$output_big"
+else
+    echo "$output_mini"
+fi
 echo $domain | figlet -cWf term >> /srv/ssh/banner
 echo >> /srv/ssh/banner
 echo "contact: $ADMIN_EMAIL" | figlet -cWf term >> /srv/ssh/banner
