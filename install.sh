@@ -24,6 +24,7 @@
 
 # Standard-Parameter
 NONINTERACTIVE=false
+RUNNOW=false
 CRON=false
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
 
@@ -33,8 +34,9 @@ function show_help {
     echo ""
     echo "Options:"
     echo "  -h, --help                Show this help message and exit"
-    echo "      --noninteractive      Run in non-interactive mode"
+    echo "  -b, --noninteractive      Run in non-interactive mode"
     echo "  -c, --cron                Set up a cron job for daily execution"
+    echo "  -r, --runnow              Run the script immediately after installation"
     echo ""
     echo "Example:"
     echo "  $0 --noninteractive --cron --config /path/to/custom.conf"
@@ -53,6 +55,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         -c|--cron)
             CRON=true
+            shift
+            ;;
+        -r|--runnow)
+            RUNNOW=true
             shift
             ;;
         *)
@@ -105,3 +111,18 @@ else
 fi
 
 echo "Installation complete. Run $SCRIPT_PATH to generate the SSH banner."
+
+# Sofortige Ausführung basierend auf --runnow oder interaktive Abfrage
+if $RUNNOW; then
+    echo "Running the banner generation script immediately..."
+    "$SCRIPT_PATH"
+elif ! $NONINTERACTIVE; then
+    echo -n "Do you want to run the banner generation script immediately? (y/n): "
+    read runnow_response
+    if [[ "$runnow_response" == "y" || "$runnow_response" == "Y" ]]; then
+        echo "Running the banner generation script immediately..."
+        "$SCRIPT_PATH"
+    else
+        echo "Immediate run skipped."
+    fi
+fi
