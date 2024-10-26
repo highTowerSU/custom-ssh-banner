@@ -90,13 +90,15 @@ else
     read modify_sshd
     if [[ "$modify_sshd" == "y" || "$modify_sshd" == "Y" ]]; then
         # Backup der sshd_config anlegen
-        if [ ! -f "$BACKUP_PATH" ]; then
-            echo "Creating a backup of sshd_config at $BACKUP_PATH..."
-            cp "$SSHD_CONFIG" "$BACKUP_PATH"
-            echo "Backup created at $BACKUP_PATH."
-        else
-            echo "Backup already exists at $BACKUP_PATH. Skipping backup."
+        BACKUP_PATH_N=$BACKUP_PATH
+        while [ -f "$BACKUP_PATH_N" ]; then
+            echo "Backup already exists at $BACKUP_PATH_N."
+            BACKUP_PATH_N=$BACKUP_PATH$(date "+%s")
+            echo "Trying $BACKUP_PATH_N."
         fi
+        echo "Creating a backup of sshd_config at $BACKUP_PATH_N..."
+        cp "$SSHD_CONFIG" "$BACKUP_PATH_N"
+        echo "Backup created at $BACKUP_PATH_N."
         sed -i '/^Banner/d' "$SSHD_CONFIG"
         sed -i '/^DebianBanner/d' "$SSHD_CONFIG"
         echo "Banner /srv/ssh/banner" >> "$SSHD_CONFIG"
