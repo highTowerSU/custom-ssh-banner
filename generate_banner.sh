@@ -151,5 +151,3 @@ if $modify_sshd_config; then
     echo "DebianBanner no" >> "$SSHD_CONFIG"
     service sshd restart
 fi
-
-echo "Installation complete. Run $SCRIPT_PATH to generate the SSH banner."
