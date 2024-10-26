@@ -58,15 +58,15 @@ lines_big=$(echo "$output_big" | wc -l)
 echo "################################################################################" > /srv/ssh/banner
 # Zeilenanzahl vergleichen und entsprechende Ausgabe wählen
 if [ "$lines_mini" -gt "$lines_big" ]; then
-    echo "$output_big"
+    echo "$output_big" >> /srv/ssh/banner
 else
-    echo "$output_mini"
+    echo "$output_mini" >> /srv/ssh/banner
 fi
 echo $domain | figlet -cWf term >> /srv/ssh/banner
 echo >> /srv/ssh/banner
-echo "contact: $ADMIN_EMAIL" | figlet -cWf term >> /srv/ssh/banner >> /srv/ssh/banner
+echo "contact: $ADMIN_EMAIL" | figlet -cWf term >> /srv/ssh/banner
 if [[ -n "$WARNING_MESSAGE" ]]; then
-    echo "$WARNING_MESSAGE" | figlet -cWf term >> /srv/ssh/banner >> /srv/ssh/banner
+    echo "$WARNING_MESSAGE" | figlet -cWf term >> /srv/ssh/banner
 fi
 echo >> /srv/ssh/banner
 echo "################################################################################" >> /srv/ssh/banner
