@@ -1,4 +1,30 @@
 #!/bin/bash
+
+# -----------------------------------------------------------------------------
+# generate_banner.sh
+# Copyright (C) 2023 highTowerSU
+#
+# Repository: https://github.com/highTowerSU/custom-ssh-banner
+#
+# Description: This script generates a custom SSH banner using `figlet` to display 
+# the hostname, domain, and contact email. The generated banner can be applied 
+# to the SSH server by updating sshd_config. Configuration settings are loaded 
+# from /etc/ssh/custom_sshd_banner.conf.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+# -----------------------------------------------------------------------------
+
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
 SSHD_CONFIG="/etc/ssh/sshd_config"
 BACKUP_PATH="/etc/ssh/sshd_config.bak"
