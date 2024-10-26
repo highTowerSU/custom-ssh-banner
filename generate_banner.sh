@@ -35,6 +35,9 @@ NONINTERACTIVE=false
 if [[ "$1" == "--noninteractive" ]]; then
     NONINTERACTIVE=true
 fi
+if [[ "$SCRIPT_NAME" == "generate_banner" ]]; then
+    NONINTERACTIVE=true
+fi
 
 mkdir -p /srv/ssh
 apt install -y figlet
