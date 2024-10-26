@@ -27,8 +27,8 @@ NONINTERACTIVE=false
 RUNNOW=false
 CRON=false
 MODIFYSSHDCONF=false
-WARNING_MESSAGE=false
-MAIL_ADDRESS=false
+#WARNING_MESSAGE=false
+#MAIL_ADDRESS=false
 
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
 SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
