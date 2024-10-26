@@ -19,7 +19,7 @@ git clone https://github.com/highTowerSU/custom-ssh-banner.git "$TEMP_DIR"
 # Installationsskript ausführen
 chmod +x "$TEMP_DIR/install.sh"
 cd $TEMP_DIR
-"install.sh" "$@"
+"./install.sh" "$@"
 cd ..
 
 # Aufräumen
