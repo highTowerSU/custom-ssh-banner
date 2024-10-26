@@ -91,11 +91,11 @@ else
     if [[ "$modify_sshd" == "y" || "$modify_sshd" == "Y" ]]; then
         # Backup der sshd_config anlegen
         BACKUP_PATH_N=$BACKUP_PATH
-        while [ -f "$BACKUP_PATH_N" ]; then
+        while [ -f "$BACKUP_PATH_N" ]; do
             echo "Backup already exists at $BACKUP_PATH_N."
             BACKUP_PATH_N=$BACKUP_PATH$(date "+%s")
             echo "Trying $BACKUP_PATH_N."
-        fi
+        done
         echo "Creating a backup of sshd_config at $BACKUP_PATH_N..."
         cp "$SSHD_CONFIG" "$BACKUP_PATH_N"
         echo "Backup created at $BACKUP_PATH_N."
