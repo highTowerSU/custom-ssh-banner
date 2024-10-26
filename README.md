@@ -1,8 +1,11 @@
+```markdown
 # Custom SSH Banner Script
 
-This script generates a custom SSH banner using `figlet`. It loads configuration from `/etc/ssh/custom_sshd_banner.conf`, where you can set the admin contact email. The banner is saved in `/srv/ssh/banner`, and recommended `sshd_config` settings are displayed.
+This script generates a custom SSH banner using `figlet`. It loads configuration from `/etc/ssh/custom_sshd_banner.conf`, where you can set the admin contact email and warning message. The banner is saved in `/srv/ssh/banner`, and recommended `sshd_config` settings are displayed.
 
 ## Installation
+
+### Option 1: Install via Git
 
 1. Clone the repository:
    ```bash
@@ -10,12 +13,17 @@ This script generates a custom SSH banner using `figlet`. It loads configuration
    cd custom-ssh-banner
    ```
 
-2. Run the banner generation script:
+2. Run the install script:
    ```bash
-   sudo ./generate_banner.sh
+   sudo ./install.sh
    ```
 
-3. The script will offer to apply recommended changes to `/etc/ssh/sshd_config`.
+### Option 2: One-Line Web Install
+
+Run this command to download and execute the install script directly:
+   ```bash
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/highTowerSU/custom-ssh-banner/webinstall.sh)"
+   ```
 
 ## Configuration
 
