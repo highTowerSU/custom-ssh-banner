@@ -27,6 +27,9 @@ NONINTERACTIVE=false
 RUNNOW=false
 CRON=false
 MODIFYSSHDCONF=false
+WARNING_MESSAGE=false
+MAIL_ADDRESS=false
+
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
 SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
 SYMLINK_PATH="/etc/cron.daily/generate_banner"
@@ -37,10 +40,12 @@ function show_help {
     echo ""
     echo "Options:"
     echo "  -h, --help                Show this help message and exit"
+    echo "  -a, --mail <a@b.de>       Set mail address in config"
     echo "  -b, --noninteractive      Run in non-interactive mode"
     echo "  -c, --cron                Set up a cron job for daily execution"
     echo "  -r, --runnow              Run the script immediately after installation"
-    echo "  -m, --modify-sshd-conf    Modify sshd_config wenn using with --runnow"
+    echo "  -m, --modify-sshd-conf    Modify sshd_config when used with --runnow"
+    echo "  -w, --warning <CAVE>      Set warning message in config"
     echo ""
     echo "Example:"
     echo "  $0 --noninteractive --cron --runnow --modify-sshd-conf"
@@ -52,6 +57,10 @@ while [[ $# -gt 0 ]]; do
         -h|--help)
             show_help
             exit 0
+            ;;
+        -a|--mail)
+            MAIL_ADDRESS="$2"
+            shift 2
             ;;
         -b|--noninteractive)
             NONINTERACTIVE=true
@@ -69,6 +78,10 @@ while [[ $# -gt 0 ]]; do
             MODIFYSSHDCONF=true
             shift
             ;;
+        -w|--warning)
+            WARNING_MESSAGE="$2"
+            shift 2
+            ;;
         *)
             echo "Unknown option: $1"
             show_help
@@ -76,6 +89,7 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
 
 # Skript kopieren und ausführbar machen
 echo "Installing banner generation script to $SCRIPT_PATH..."
@@ -87,8 +101,12 @@ if [ ! -f "$CONFIG_PATH" ]; then
     echo "Creating configuration file at $CONFIG_PATH..."
     cat << EOF > "$CONFIG_PATH"
 # Default admin email for banner
-ADMIN_EMAIL="root@$(hostname -f)"
+ADMIN_EMAIL="${MAIL_ADDRESS:-root@$(hostname -f)}"
 EOF
+    # Warnmeldung hinzufügen, falls gesetzt
+    if [ -n "$WARNING_MESSAGE" ]; then
+        echo "WARNING_MESSAGE=\"$WARNING_MESSAGE\"" >> "$CONFIG_PATH"
+    fi
     echo "Configuration file created at $CONFIG_PATH."
 else
     echo "Configuration file already exists at $CONFIG_PATH. Skipping creation."
