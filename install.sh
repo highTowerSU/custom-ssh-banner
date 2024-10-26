@@ -116,12 +116,12 @@ fi
 
 echo "Installation complete. Run $SCRIPT_PATH to generate the SSH banner."
 
-ARGS=""
+ARGS=()
 if $NONINTERACTIVE; then
-    ARGS="$ARGS --noninteractive"
+    ARGS+=("--noninteractive")
 fi
 if $MODIFYSSHDCONF; then
-    ARGS="$ARGS --modify-sshd-conf" 
+    ARGS+=("--modify-sshd-conf")
 fi
 
 # Sofortige Ausführung basierend auf --runnow oder interaktive Abfrage
