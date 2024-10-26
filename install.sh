@@ -40,7 +40,7 @@ function show_help {
     echo "  -b, --noninteractive      Run in non-interactive mode"
     echo "  -c, --cron                Set up a cron job for daily execution"
     echo "  -r, --runnow              Run the script immediately after installation"
-    echo "  -m, --modify-sshd-conf    Modify sshd_config wenn using with --runnow
+    echo "  -m, --modify-sshd-conf    Modify sshd_config wenn using with --runnow"
     echo ""
     echo "Example:"
     echo "  $0 --noninteractive --cron --config /path/to/custom.conf"
@@ -96,7 +96,7 @@ fi
 
 # Symlink für cron erstellen basierend auf NONINTERACTIVE oder Abfrage
 create_symlink=false
-if $CRON || $NONINTERACTIVE; then
+if $CRON; then
     create_symlink=true
 else
     echo -n "Do you want to create a symlink for daily cron? (y/n): "
