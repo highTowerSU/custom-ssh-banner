@@ -42,7 +42,7 @@ function show_help {
     echo "Options:"
     echo "  -h, --help                Show this help message and exit"
     echo "  -b, --noninteractive      Run in non-interactive mode"
-    echo "  -m, --modify-sshd-conf    Modify sshd_config wenn using with --runnow
+    echo "  -m, --modify-sshd-conf    Modify sshd_config"
     echo ""
     echo "Example:"
     echo "  $0 --noninteractive --modify-sshd-conf"
