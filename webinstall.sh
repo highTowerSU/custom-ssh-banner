@@ -27,6 +27,5 @@ else
     exit 1
 fi
 
-ls -la $TEMP_DIR
 # Aufräumen
 rm -rf "$TEMP_DIR"
