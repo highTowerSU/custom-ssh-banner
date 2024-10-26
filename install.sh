@@ -27,6 +27,8 @@ NONINTERACTIVE=false
 RUNNOW=false
 CRON=false
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
+SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
+SYMLINK_PATH="/etc/cron.daily/generate_banner"
 
 # Hilfe anzeigen
 function show_help {
@@ -68,10 +70,6 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
-# Pfade für die Installation
-SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
-SYMLINK_PATH="/etc/cron.daily/generate_banner"
 
 # Skript kopieren und ausführbar machen
 echo "Installing banner generation script to $SCRIPT_PATH..."
