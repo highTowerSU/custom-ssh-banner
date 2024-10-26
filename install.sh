@@ -127,12 +127,14 @@ fi
 # Sofortige Ausführung basierend auf --runnow oder interaktive Abfrage
 if $RUNNOW; then
     echo "Running the banner generation script immediately..."
+    echo "Argumente: $ARGS"
     "$SCRIPT_PATH" $ARGS
 elif ! $NONINTERACTIVE; then
     echo -n "Do you want to run the banner generation script immediately? (y/n): "
     read runnow_response
     if [[ "$runnow_response" == "y" || "$runnow_response" == "Y" ]]; then
         echo "Running the banner generation script immediately..."
+        echo "Argumente: $ARGS"
         "$SCRIPT_PATH" $ARGS
     else
         echo "Immediate run skipped."
