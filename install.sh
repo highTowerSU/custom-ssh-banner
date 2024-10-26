@@ -43,7 +43,7 @@ function show_help {
     echo "  -m, --modify-sshd-conf    Modify sshd_config wenn using with --runnow"
     echo ""
     echo "Example:"
-    echo "  $0 --noninteractive --cron --config /path/to/custom.conf"
+    echo "  $0 --noninteractive --cron --runnow --modify-sshd-conf"
 }
 
 # Argumente parsen
