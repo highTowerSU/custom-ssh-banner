@@ -25,6 +25,7 @@
 # Pfade für die Installation
 SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
+SYMLINK_PATH="/etc/cron.daily/generate_banner"
 
 # Skript kopieren und ausführbar machen
 echo "Installing banner generation script to $SCRIPT_PATH..."
@@ -41,6 +42,17 @@ EOF
     echo "Configuration file created at $CONFIG_PATH."
 else
     echo "Configuration file already exists at $CONFIG_PATH. Skipping creation."
+fi
+
+# Abfrage, ob der Symlink erstellt werden soll
+echo -n "Do you want to create a symlink for daily cron? (y/n): "
+read create_symlink
+if [[ "$create_symlink" == "y" || "$create_symlink" == "Y" ]]; then
+    echo "Creating symlink at $SYMLINK_PATH..."
+    ln -sf "$SCRIPT_PATH" "$SYMLINK_PATH"
+    echo "Symlink created."
+else
+    echo "Symlink creation skipped."
 fi
 
 echo "Installation complete. Run $SCRIPT_PATH to generate the SSH banner."
