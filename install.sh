@@ -49,7 +49,7 @@ function show_help {
     echo "  -w, --warning <CAVE>      Set warning message in config"
     echo ""
     echo "Example:"
-    echo "  $0 --noninteractive --cron --runnow --modify-sshd-conf"
+    echo "  $0 --noninteractive --cron --runnow --modify-sshd-conf --mail <a@b.de> --warning <CAVE>"
 }
 
 # Argumente parsen
