@@ -20,7 +20,7 @@ This script generates a custom SSH banner using `figlet`. It loads configuration
 
 ### Option 2: One-Line Web Install
 
-Run this command to download and execute the install script directly:
+Run this command to download and execute the install script directly (options from install sh working):
    ```bash
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/highTowerSU/custom-ssh-banner/main/webinstall.sh)"
    ```
