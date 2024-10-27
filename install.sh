@@ -52,8 +52,6 @@ function show_help {
     echo "  $0 --noninteractive --cron --runnow --modify-sshd-conf"
 }
 
-echo "ARGS: $#"
-
 # Argumente parsen
 while [[ $# -gt 0 ]]; do
     case "$1" in
