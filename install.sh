@@ -118,7 +118,7 @@ create_symlink=false
 if $CRON; then
     create_symlink=true
 else
-    echo -n "Do you want to create a symlink for daily cron? (y/n): "
+    echo -n "Do you want to create a symlink for daily cron? (y/N): "
     read create_symlink_response
     if [[ "$create_symlink_response" == "y" || "$create_symlink_response" == "Y" ]]; then
         create_symlink=true
@@ -149,7 +149,7 @@ if $RUNNOW; then
     echo "Argumente: ${ARGS[@]}"
     "$SCRIPT_PATH" ${ARGS[@]}
 elif ! $NONINTERACTIVE; then
-    echo -n "Do you want to run the banner generation script immediately? (y/n): "
+    echo -n "Do you want to run the banner generation script immediately? (y/N): "
     read runnow_response
     if [[ "$runnow_response" == "y" || "$runnow_response" == "Y" ]]; then
         echo "Running the banner generation script immediately..."
