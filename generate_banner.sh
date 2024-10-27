@@ -2,7 +2,7 @@
 
 # -----------------------------------------------------------------------------
 # generate_banner.sh
-# Copyright (C) 2023 highTowerSU
+# Copyright (C) 2010-2024 highTowerSU
 #
 # Repository: https://github.com/highTowerSU/custom-ssh-banner
 #
