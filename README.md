@@ -15,15 +15,31 @@ This script generates a custom SSH banner using `figlet`. It loads configuration
 
 2. Run the install script:
    ```bash
-   sudo ./install.sh
+   sudo ./install.sh [--noninteractive] [--cron] [--runnow] [--modify-sshd-conf] [--mail <a@b.de>] [--warning <CAVE>]
    ```
 
 ### Option 2: One-Line Web Install
 
-Run this command to download and execute the install script directly (options from install sh working):
+Run this command to download and execute the install script directly (options from install sh working). You can install this via the command-line with either curl, wget or another similar tool.
+
+#### curl
    ```bash
-   sh -c "$(curl -fsSL https://raw.githubusercontent.com/highTowerSU/custom-ssh-banner/main/webinstall.sh)"
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/highTowerSU/custom-ssh-banner/main/webinstall.sh)" "" [--noninteractive] [--cron] [--runnow] [--modify-sshd-conf] [--mail <a@b.de>] [--warning <CAVE>]
    ```
+
+#### wget
+   ```bash
+   sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" [--noninteractive] [--cron] [--runnow] [--modify-sshd-conf] [--mail <a@b.de>] [--warning <CAVE>]
+   ```
+
+#### fetch
+   ```bash
+   sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" [--noninteractive] [--cron] [--runnow] [--modify-sshd-conf] [--mail <a@b.de>] [--warning <CAVE>]
+   ```
+
+
+
+
 
 ## Configuration
 
