@@ -120,7 +120,7 @@ cp custom_sshd_banner.conf "${CONFIG_PATH}.dist"
 create_symlink=false
 if $CRON; then
     create_symlink=true
-else
+elif ! $NONINTERACTIVE; then
     echo -n "Do you want to create a symlink for daily cron? (y/N): "
     read create_symlink_response
     if [[ "$create_symlink_response" == "y" || "$create_symlink_response" == "Y" ]]; then
