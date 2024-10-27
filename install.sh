@@ -42,7 +42,7 @@ function show_help {
     echo "Options:"
     echo "  -h, --help                Show this help message and exit"
     echo "  -a, --mail <a@b.de>       Set mail address in config"
-    echo "  -d, --cron                Set up a cron job for daily execution"
+    echo "  -c, --cron                Set up a cron job for daily execution"
     echo "  -m, --modify-sshd-conf    Modify sshd_config when used with --runnow"
     echo "  -n, --noninteractive      Run in non-interactive mode"
     echo "  -r, --runnow              Run the script immediately after installation"
