@@ -52,6 +52,8 @@ function show_help {
     echo "  $0 --noninteractive --cron --runnow --modify-sshd-conf"
 }
 
+echo "ARGS: $#"
+
 # Argumente parsen
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -65,6 +67,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         -b|--noninteractive)
             NONINTERACTIVE=true
+            echo "switched to noninteractive-Mode"
             shift
             ;;
         -c|--cron)
