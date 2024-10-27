@@ -112,6 +112,7 @@ EOF
 else
     echo "Configuration file already exists at $CONFIG_PATH. Skipping creation."
 fi
+echo "Copying configuration template to ${CONFIG_FILE}.dist..."
 cp custom_sshd_banner.conf "${CONFIG_PATH}.dist"
 
 # Symlink für cron erstellen basierend auf NONINTERACTIVE oder Abfrage
