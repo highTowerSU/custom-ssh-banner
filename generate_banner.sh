@@ -85,7 +85,7 @@ output_mini=$(echo "$hostname" | figlet -cWf mini)
 output_big=$(echo "$hostname" | figlet -cWf big)
 
 # Zeilenanzahl der Ausgaben bestimmen
-lines_mini=$(echo "$output_mini" | wc -l)
+lines_one=$(echo A | figlet -cWf big | wc -l)
 lines_big=$(echo "$output_big" | wc -l)
 
 
@@ -94,9 +94,9 @@ lines_big=$(echo "$output_big" | wc -l)
 echo "################################################################################" > /srv/ssh/banner
 # Zeilenanzahl vergleichen und entsprechende Ausgabe wählen
 if [ "$lines_big" -gt "$lines_mini" ]; then
-    echo "$output_big" >> /srv/ssh/banner
-else
     echo "$output_mini" >> /srv/ssh/banner
+else
+    echo "$output_big" >> /srv/ssh/banner
 fi
 echo $domain | figlet -cWf term >> /srv/ssh/banner
 echo >> /srv/ssh/banner
