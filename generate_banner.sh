@@ -93,7 +93,7 @@ lines_big=$(echo "$output_big" | wc -l)
 # Banner-Datei erstellen
 echo "################################################################################" > /srv/ssh/banner
 # Zeilenanzahl vergleichen und entsprechende Ausgabe wählen
-if [ "$lines_mini" -gt "$lines_big" ]; then
+if [ "$lines_big" -gt "$lines_mini" ]; then
     echo "$output_big" >> /srv/ssh/banner
 else
     echo "$output_mini" >> /srv/ssh/banner
