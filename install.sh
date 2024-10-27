@@ -42,10 +42,10 @@ function show_help {
     echo "Options:"
     echo "  -h, --help                Show this help message and exit"
     echo "  -a, --mail <a@b.de>       Set mail address in config"
-    echo "  -b, --noninteractive      Run in non-interactive mode"
-    echo "  -c, --cron                Set up a cron job for daily execution"
-    echo "  -r, --runnow              Run the script immediately after installation"
+    echo "  -d, --cron                Set up a cron job for daily execution"
     echo "  -m, --modify-sshd-conf    Modify sshd_config when used with --runnow"
+    echo "  -n, --noninteractive      Run in non-interactive mode"
+    echo "  -r, --runnow              Run the script immediately after installation"
     echo "  -w, --warning <CAVE>      Set warning message in config"
     echo ""
     echo "Example:"
@@ -65,21 +65,21 @@ while [[ $# -gt 0 ]]; do
             MAIL_ADDRESS="$2"
             shift 2
             ;;
-        -b|--noninteractive)
-            NONINTERACTIVE=true
-            echo "switched to noninteractive-Mode"
-            shift
-            ;;
         -c|--cron)
             CRON=true
             shift
             ;;
-        -r|--runnow)
-            RUNNOW=true
-            shift
-            ;;
         -m|--modify-sshd-conf)
             MODIFYSSHDCONF=true
+            shift
+            ;;
+        -n|--noninteractive)
+            NONINTERACTIVE=true
+            echo "switched to noninteractive-Mode"
+            shift
+            ;;
+        -r|--runnow)
+            RUNNOW=true
             shift
             ;;
         -w|--warning)
