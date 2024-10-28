@@ -71,7 +71,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if [[ "$SCRIPT_NAME" == "generate_banner" ]]; then
+if [[ "$0" == "generate_banner" ]]; then
     NONINTERACTIVE=true
 fi
 
