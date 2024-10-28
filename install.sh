@@ -150,6 +150,8 @@ fi
 if $RUNNOW; then
     echo "Running the banner generation script immediately..."
     echo "Argumente: ${ARGS[@]}"
+    echo ""
+    
     "$SCRIPT_PATH" ${ARGS[@]}
 elif ! $NONINTERACTIVE; then
     echo -n "Do you want to run the banner generation script immediately? (y/N): "
@@ -157,6 +159,8 @@ elif ! $NONINTERACTIVE; then
     if [[ "$runnow_response" == "y" || "$runnow_response" == "Y" ]]; then
         echo "Running the banner generation script immediately..."
         echo "Argumente: ${ARGS[@]}"
+        echo ""
+        
         "$SCRIPT_PATH" ${ARGS[@]}
     else
         echo "Immediate run skipped."
