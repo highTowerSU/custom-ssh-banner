@@ -44,8 +44,7 @@ if [ -f "$TEMP_DIR/install.sh" ]; then
     chmod +x "$TEMP_DIR/install.sh"
     cd $TEMP_DIR
     echo "running: ./install.sh $@"
-    echo "
-"
+    echo -e "\n"
     "./install.sh" "$@"
     cd ..
 else
