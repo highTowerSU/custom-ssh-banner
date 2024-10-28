@@ -150,7 +150,7 @@ fi
 if $RUNNOW; then
     echo "Running the banner generation script immediately..."
     echo "Argumente: ${ARGS[@]}"
-    echo -e "\n"
+    echo -e "\n\n"
     
     "$SCRIPT_PATH" ${ARGS[@]}
 elif ! $NONINTERACTIVE; then
@@ -159,7 +159,7 @@ elif ! $NONINTERACTIVE; then
     if [[ "$runnow_response" == "y" || "$runnow_response" == "Y" ]]; then
         echo "Running the banner generation script immediately..."
         echo "Argumente: ${ARGS[@]}"
-        echo -e "\n"
+        echo -e "\n\n"
         
         "$SCRIPT_PATH" ${ARGS[@]}
     else
