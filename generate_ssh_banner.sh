@@ -71,7 +71,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if [[ "$0" == "generate_ssh_banner" ]]; then
+if [[ "$(basename $0)" == "generate_ssh_banner" ]]; then
     NONINTERACTIVE=true
 fi
 
