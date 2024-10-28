@@ -76,7 +76,7 @@ if [[ "$0" == "generate_banner" ]]; then
 fi
 
 mkdir -p /srv/ssh
-apt install -y figlet
+apt-get install -y figlet
 hostname=$(hostname -s)
 domain=$(hostname -d)
 
