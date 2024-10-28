@@ -30,6 +30,7 @@ SSHD_CONFIG="/etc/ssh/sshd_config"
 BACKUP_PATH="/etc/ssh/sshd_config.bak"
 NONINTERACTIVE=false
 MODIFYSSHDCONF=false
+QUIET=false
 
 # Configuration loading
 source "$CONFIG_PATH"
@@ -63,6 +64,10 @@ while [[ $# -gt 0 ]]; do
             MODIFYSSHDCONF=true
             shift
             ;;
+        -q|--quiet)
+            QUIET=true
+            shift
+            ;;
         *)
             echo "Unknown option: $1"
             show_help
@@ -73,6 +78,11 @@ done
 
 if [[ "$(basename $0)" == "generate_ssh_banner" ]]; then
     NONINTERACTIVE=true
+    QUIET=true
+fi
+
+if $QUIET; then
+    exec > /dev/null
 fi
 
 mkdir -p /srv/ssh
