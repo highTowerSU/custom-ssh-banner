@@ -32,8 +32,13 @@ NONINTERACTIVE=false
 MODIFYSSHDCONF=false
 QUIET=false
 
-# Configuration loading
-source "$CONFIG_PATH"
+# Konfigurationsdatei laden
+if [ -f "$CONFIG_PATH" ]; then
+    source "$CONFIG_PATH"
+else
+    echo "Error: Configuration file $CONFIG_PATH not found."
+    exit 1
+fi
 
 
 # Hilfe anzeigen
