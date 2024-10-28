@@ -95,6 +95,8 @@ To install on Debian-based systems, use:
   sudo apt update
   sudo apt install figlet
 EOF
+
+  exit 1
 fi
 
 hostname=$(hostname -s)
@@ -107,8 +109,6 @@ output_big=$(echo "$hostname" | figlet -cWf big)
 # Zeilenanzahl der Ausgaben bestimmen
 lines_one=$(echo A | figlet -cWf big | wc -l)
 lines_big=$(echo "$output_big" | wc -l)
-
-
 
 # Banner-Datei erstellen
 echo "################################################################################" > /srv/ssh/banner
@@ -127,11 +127,10 @@ fi
 echo >> /srv/ssh/banner
 echo "################################################################################" >> /srv/ssh/banner
 echo >> /srv/ssh/banner
-cat /srv/ssh/banner
 
-echo "Recommended sshd_config changes:"
-echo "Banner /srv/ssh/banner"
-echo "DebianBanner no"
+echo ""
+cat /srv/ssh/banner
+echo ""
 
 modify_sshd_config=false
 # Abfrage zur Anpassung der sshd_config
