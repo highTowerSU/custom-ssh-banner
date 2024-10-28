@@ -69,8 +69,8 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         *)
-            echo "Unknown option: $1"
-            show_help
+            echo "Unknown option: $1" >/dev/stderr
+            show_help >/dev/stderr
             exit 1
             ;;
     esac
@@ -86,7 +86,17 @@ if $QUIET; then
 fi
 
 mkdir -p /srv/ssh
-apt-get install -y figlet
+if ! command -v figlet >/dev/null 2>&1; then
+    # Fehlermeldung anzeigen, falls das Tool fehlt
+    cat >/dev/stderr <<EOF
+Error: figlet is not installed. Please install it before running this script.
+
+To install on Debian-based systems, use:
+  sudo apt update
+  sudo apt install figlet
+EOF
+fi
+
 hostname=$(hostname -s)
 domain=$(hostname -d)
 
