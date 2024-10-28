@@ -32,8 +32,8 @@ MODIFYSSHDCONF=false
 #MAIL_ADDRESS=false
 
 CONFIG_PATH="/etc/ssh/custom_sshd_banner.conf"
-SCRIPT_PATH="/usr/local/bin/generate_banner.sh"
-SYMLINK_PATH="/etc/cron.daily/generate_banner"
+SCRIPT_PATH="/usr/local/bin/generate_ssh_banner.sh"
+SYMLINK_PATH="/etc/cron.daily/generate_ssh_banner"
 
 # Hilfe anzeigen
 function show_help {
@@ -95,7 +95,7 @@ done
 
 # Skript kopieren und ausführbar machen
 echo "Installing banner generation script to $SCRIPT_PATH..."
-cp generate_banner.sh "$SCRIPT_PATH"
+cp generate_ssh_banner.sh "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"
 
 # Konfigurationsdatei erstellen, falls sie nicht existiert
