@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # -----------------------------------------------------------------------------
-# generate_banner.sh
+# generate_ssh_banner.sh
 # Copyright (C) 2010-2024 highTowerSU
 #
 # Repository: https://github.com/highTowerSU/custom-ssh-banner
@@ -71,7 +71,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if [[ "$0" == "generate_banner" ]]; then
+if [[ "$0" == "generate_ssh_banner" ]]; then
     NONINTERACTIVE=true
 fi
 
